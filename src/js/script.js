@@ -105,11 +105,42 @@
     });
   }
   function filterBooks() {
-    for (const eachType of dataSource.books) {
-      let shouldBeHidden = false;
-
+    console.log('empty');
+    for (const book of dataSource.books) {
+    // console.log('step 1');
+      book.shouldBeHidden = false;
+      for (const filter of filters) {
+      // console.log('step 2');
+      //  console.log("filter", book.details[filter]);
+        if (!book.details[filter]) {
+          console.log('step 3');
+          book.shouldBeHidden = true;
+          break;
+        }
+      }
+        
+      if (book.shouldBeHidden) {
+        //console.log('step 4');
+        const bookId = book.id;
+        //console.log('step 5', book.id);
+        const bookImg = document.querySelector('.book__image[data-id="'+bookId+'"]');
+        //console.log('bookImg', bookImg);
+      
+        bookImg.classList.add('hidden');
+      } else if (!book.shouldBeHidden) { 
+        const bookId = book.id;
+        const bookImg = document.querySelector('.book__image[data-id="'+bookId+'"]');
+        //console.log('step 6');
+        
+        bookImg.classList.remove('hidden');}
+      
+    
+    
     }
+    
   }
+
+  
   initActions();
 
 
